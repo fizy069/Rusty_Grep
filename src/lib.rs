@@ -21,6 +21,7 @@ impl Config {
         let ignore_case;
 
         if args.len() > 3 {
+            //cli arg takes precendence over env variable if specified
             ignore_case = args[3].to_lowercase() == "true";
         } else {
             ignore_case = env::var("IGNORE_CASE").is_ok();

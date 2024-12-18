@@ -4,11 +4,11 @@ use rusty_grep::Config;
 fn main() {
     let args: Vec<String> = env::args().collect();
     let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Fix this : {err}");
+        eprintln!("Fix this : {err}");
         process::exit(1);
     });
     if let Err(e) = rusty_grep::run(config){
-        println!("An error occured : {e}");
+        eprintln!("An error occured : {e}");
         process::exit(1);
     }
 }
