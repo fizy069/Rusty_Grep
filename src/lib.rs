@@ -9,15 +9,22 @@ pub struct Config {
 
 impl Config {
     pub fn build(args: &[String]) -> Result<Config, &str> {
-        if args.len() <= 2 {
+        if args.len() < 3 {
             return Err(
-                "Too few arguments!\nArgument 1 : string to be searched\nArgument 2 : File path",
+                "Too few arguments!\nArgument 1 : string to be searched\nArgument 2 : File path
+                Optional Argument 3 : ignore_case (true/false)",
             );
         }
 
         let input = args[1].clone();
         let file_path = args[2].clone();
-        let ignore_case = env::var("IGNORE_CASE").is_ok();
+        let ignore_case;
+
+        if args.len() > 3 {
+            ignore_case = args[3].to_lowercase() == "true";
+        } else {
+            ignore_case = env::var("IGNORE_CASE").is_ok();
+        }
 
         Ok(Config {
             input,
